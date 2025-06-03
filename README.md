@@ -24,14 +24,11 @@ This repository provides an implementation of the paper [Robust Reinforcement Le
 If you use this repository in your work, consider citing:
 
 ```
-@misc{plozza2025robustreinforcementlearningbasedlocomotion,
-      title={Robust Reinforcement Learning-Based Locomotion for Resource-Constrained Quadrupeds with Exteroceptive Sensing}, 
-      author={Davide Plozza and Patricia Apostol and Paul Joseph and Simon Schläpfer and Michele Magno},
-      year={2025},
-      eprint={2505.12537},
-      archivePrefix={arXiv},
-      primaryClass={cs.RO},
-      url={https://arxiv.org/abs/2505.12537}, 
+@article{plozza2025robust,
+  title={Robust Reinforcement Learning-Based Locomotion for Resource-Constrained Quadrupeds with Exteroceptive Sensing},
+  author={Plozza, Davide and Apostol, Patricia and Joseph, Paul and Schl{\"a}pfer, Simon and Magno, Michele},
+  journal={arXiv preprint arXiv:2505.12537},
+  year={2025}
 }
 ```
 
