@@ -239,7 +239,21 @@ Trained agents can be deployed with Improbable's AI [walk-these-ways](https://gi
 
 GPU-accelerated elevation map (running on a Jetson) can be obtained with RSL's open-source implementation [elevation_mapping_cupy](https://github.com/leggedrobotics/elevation_mapping_cupy).
 
+## Citing
 
+If you find our project useful, please consider citing:
+```
+@INPROCEEDINGS{plozza2025robustRLlocomotion,
+  author={Plozza, Davide and Apostol, Patricia and Joseph, Paul and Schläpfer, Simon and Magno, Michele},
+  booktitle={2025 IEEE International Conference on Robotics and Automation (ICRA)}, 
+  title={Robust Reinforcement Learning-Based Locomotion for Resource-Constrained Quadrupeds with Exteroceptive Sensing}, 
+  year={2025},
+  volume={},
+  number={},
+  pages={8121-8127},
+  keywords={Training;Accuracy;Robot sensing systems;Cameras;Real-time systems;Robustness;Sensors;Odometry;Quadrupedal robots;Autonomous robots},
+  doi={10.1109/ICRA55743.2025.11128474}}
+```
 
 
 
