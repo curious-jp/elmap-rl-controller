@@ -85,3 +85,5 @@ play_saved_plots
 *.png
 *.csv
 *.env
+
+/venv
