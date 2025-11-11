@@ -86,4 +86,5 @@ play_saved_plots
 *.csv
 *.env
 
-/venv
+/.venv
+/isaacgym

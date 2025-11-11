@@ -6,7 +6,7 @@ from params_proto import PrefixProto, ParamsProto
 class Cfg(PrefixProto, cli=False):
     class env(PrefixProto, cli=False):
         num_envs = 4096
-        
+
         num_dof = 12
         num_actions = 12
         env_spacing = 3.  # not used with heightfields/trimeshes
@@ -55,7 +55,7 @@ class Cfg(PrefixProto, cli=False):
 
         # observation vector for estimator. If None, the main observation vector is used
         estimator_observation_components = None
-        
+
         privileged_observation_components = [
             ['friction',        1,      True],
             ['ground_friction', None,   False],
@@ -102,7 +102,7 @@ class Cfg(PrefixProto, cli=False):
         terrain_noise_magnitude = 0.1
         # rough terrain only:
         terrain_smoothness = 0.005
-        
+
         selected = False  # select a unique terrain type and pass all arguments
         terrain_kwargs = None  # Dict of arguments for selected terrain
         min_init_terrain_level = 0
@@ -123,7 +123,7 @@ class Cfg(PrefixProto, cli=False):
         yaw_init_range = 0.
         x_init_offset = 0.
         y_init_offset = 0.
-        teleport_robots = True 
+        teleport_robots = True
         teleport_thresh = 2.0
         max_platform_height = 0.2
         max_step_height = 0.23
@@ -147,7 +147,7 @@ class Cfg(PrefixProto, cli=False):
 
         height_measurements_per_env_noise_prob = 0.1 # probability that per env noise is defined by above paramaters, else it is zero
         height_measurements_per_env_resampling_s = 3 # resampling time for per env nois
-                    
+
 
     class commands(PrefixProto, cli=False):
         command_curriculum = False
@@ -323,7 +323,7 @@ class Cfg(PrefixProto, cli=False):
     class rewards(PrefixProto, cli=False):
         reward_curriculum_factor_init = 0.001 # initial value for reward curriculum factor, that tends towards 1.0
         reward_curriculum_factor_rate = 0.98 # convergence rate c_k+1 = c_k**rate, k=iteration
-        
+
         # only one of the following should be true
         # they affect the total reward for each timestep, before adding to the episode sum
         only_positive_rewards = True  # if true negative total rewards are clipped at zero (avoids early termination problems)
@@ -511,7 +511,7 @@ class Cfg(PrefixProto, cli=False):
         timing_parameter = 0
         clock_inputs = 0
         yaw = 0
-    
+
 
     # viewer camera:
     class viewer(PrefixProto, cli=False):
@@ -545,7 +545,7 @@ class Cfg(PrefixProto, cli=False):
     class cfg_ppo(PrefixProto, cli=False):
         seed = 1
         runner_class_name = 'OnPolicyRunner'
-        
+
         class policy(PrefixProto, cli=False):
             init_noise_std = 1.0
             actor_hidden_dims = [512, 256, 128]
@@ -560,7 +560,7 @@ class Cfg(PrefixProto, cli=False):
             # rnn_type = 'lstm'
             # rnn_hidden_size = 512
             # rnn_num_layers = 1
-            
+
         class algorithm(PrefixProto, cli=False):
             # training params
             value_loss_coef = 1.0
@@ -602,6 +602,6 @@ class Cfg(PrefixProto, cli=False):
             resume_curriculum = True
 
             wandb_logging = True
-            wandb_project = 'robodog-exteroceptive-controller'
-            wandb_entity = 'pbl-robodog-rl'
+            wandb_project = 'robodog_test'
+            wandb_entity = 'curious-ks-jp-keio-jp'
             wandb_note = 'default'

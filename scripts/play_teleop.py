@@ -116,9 +116,10 @@ def load_config(cfg_dict,Cfg_class):
 
 def load_env(label,iteration=-1, headless=False):
     # if label does not specify the exact run time, take the most recent
-    logdir = f"../runs/{label}"
-    if not os.path.exists(os.path.join(f"../runs/{label}", "parameters.pkl")):
-        dirs = glob.glob(f"../runs/{label}/*")
+    logdir = f"./runs/{label}"
+    print(logdir)
+    if not os.path.exists(os.path.join(f"./runs/{label}", "parameters.pkl")):
+        dirs = glob.glob(f"./runs/{label}/*")
         logdir = sorted(dirs)[0]
 
     # load parameters from run, overwrite default parameters!
@@ -137,7 +138,7 @@ def load_env(label,iteration=-1, headless=False):
     torch.manual_seed(45)
 
 
-    
+
     Cfg.asset.file = '{MINI_GYM_ROOT_DIR}/resources/robots/go1_backpack_v3/urdf/go1_backpack.urdf'
 
 
@@ -163,26 +164,26 @@ def load_env(label,iteration=-1, headless=False):
 
     # Enforce specific friction
     Cfg.domain_rand.randomize_friction = True # if false uses default asset friction, no idea what it is
-    Cfg.domain_rand.friction_range = [0.8, 0.8] # effective friction averaged with 
+    Cfg.domain_rand.friction_range = [0.8, 0.8] # effective friction averaged with
 
     # Friction above will be averaged with this values
     # Cfg.terrain.static_friction = 1.0
     # Cfg.terrain.dynamic_friction = 1.0
 
-    
+
     # Push robots
     Cfg.domain_rand.push_robots = False
     Cfg.domain_rand.push_interval_s = 2.0
     Cfg.domain_rand.max_push_vel_xy = 1.0
 
-    
+
     # asset setup
     Cfg.asset.self_collisions = 1  # 1 to disable, 0 to enable...bitwise filter. This has also effect for terminal collisions!
 
     # -----------------
     # Env termination
     # -----------------
-    
+
     # terminate on these conditions
     Cfg.rewards.use_terminal_foot_height = False
     Cfg.rewards.use_terminal_body_height = False
@@ -207,7 +208,7 @@ def load_env(label,iteration=-1, headless=False):
     # 9: strange  ersion of random_uniform_terrain
 
     # terrain_noise_magnitude only affects terrain type 8
-    # slope, step_height, discrete_obstacles_height, stepping_stones_size, stone_distance is defined by "difficulty", 
+    # slope, step_height, discrete_obstacles_height, stepping_stones_size, stone_distance is defined by "difficulty",
     # which is defined by curriculum. If curriculum is disabled, difficulty is chosen at random
 
 
@@ -218,7 +219,7 @@ def load_env(label,iteration=-1, headless=False):
     Cfg.terrain.curriculum = False #disable curriculum. If disabled, terrain "difficulty" is chosen at random
     Cfg.terrain.selected = False # else random parameters are used
     # if selected is true, need to pass terrain_kwargs   # Dict of arguments for selected terrain
-    
+
 
 
     Cfg.terrain.terrain_proportions = [0, 0, 0, 0, 1, 0, 0, 0, 0]
@@ -316,7 +317,7 @@ class RobotController:
             self.keyboard = keyboard
         except:
             self.keyboard = None
-        
+
 
     def on_press(self,key):
         try:
@@ -335,7 +336,7 @@ class RobotController:
             if key==self.keyboard.Key.left:
                 self.keys['left'] = True
         # print(key)
-                
+
     def on_release(self,key):
         try:
             self.keys[key.char.lower()] = False
@@ -352,7 +353,7 @@ class RobotController:
                 self.keys['right'] = False
             if key==self.keyboard.Key.left:
                 self.keys['left'] = False
-            
+
     def update_control_commands(self):
 
         if self.keys['Shift']:
@@ -395,15 +396,15 @@ class RobotController:
             self.y_vel_push = self.max_push
         elif self.keys['right']:
             self.y_vel_push = -self.max_push
-            
-        
+
+
         self.push_robot = self.x_vel_push!=0 or self.y_vel_push!=0
-        
+
 
     def get_velocity_commands(self):
         return self.x_vel_cmd, self.y_vel_cmd, self.yaw_vel_cmd
 
-    
+
 
 def play_go1(headless=True):
     from ml_logger import logger
@@ -416,9 +417,8 @@ def play_go1(headless=True):
 
 
     # policy run
-    label = "exteroceptive_robust_icra_proposed/2024-08-25_01-25-03.910595"
-    iteration =  60000
-   
+    label = "rsl_exteroceptive_simple/2025-10-28_04-48-55.533078"
+    iteration =  10000
 
     # Create an instance of the RobotController
     robot_controller = RobotController()
@@ -434,7 +434,6 @@ def play_go1(headless=True):
 
 
     env, policy = load_env(label,iteration, headless=headless)
-    
 
     num_eval_steps = 1000000
 
@@ -460,7 +459,6 @@ def play_go1(headless=True):
         env.commands[:, 0] = robot_controller.x_vel_cmd
         env.commands[:, 1] = robot_controller.y_vel_cmd
         env.commands[:, 2] = robot_controller.yaw_vel_cmd
-        
 
         obs, rew, done, info = env.step(actions)
 
@@ -470,7 +468,7 @@ def play_go1(headless=True):
         estimator_target[i] = env.privileged_obs_buf[0,:].to('cpu')
 
         # Push robot
-        if robot_controller.push_robot:         
+        if robot_controller.push_robot:
             #env.root_states[:, 7:9] = torch_rand_float(-max_vel, max_vel, (env.root_states.shape[0], 2),
             #                                                  device=env.device)  # lin vel x/y
             env.root_states[:, 7] = torch.ones_like(env.root_states[:,0])*robot_controller.x_vel_push

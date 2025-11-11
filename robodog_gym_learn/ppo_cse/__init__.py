@@ -185,7 +185,7 @@ class Runner:
         config_file_path = os.path.join(self.run_path, "parameters.yaml")
         with open(config_file_path, 'w') as file:
             yaml.dump(cfg_dict, file, sort_keys=False, default_flow_style=False, Dumper=CustomNoAliasDumper)
-    
+
         if self.cfg.cfg_ppo.runner.wandb_logging:
             self.wandb_run = wandb.init(project = self.cfg.cfg_ppo.runner.wandb_project,
                                         entity = self.cfg.cfg_ppo.runner.wandb_entity,
@@ -194,13 +194,13 @@ class Runner:
                                         name = run_name,
                                         group = run_dir,
                                         notes =self.cfg.cfg_ppo.runner.wandb_note)
-                                    
+
             # store config file
             self.wandb_run.save(config_file_path, base_path=self.run_path, policy="now")
             # also store pickle version
             config_file_pickle_path = os.path.join(self.run_path, "parameters.pkl")
             self.wandb_run.save(config_file_pickle_path, base_path=self.run_path, policy="now")
-        
+
 
 
         if init_at_random_ep_len:
@@ -239,7 +239,7 @@ class Runner:
                                                                          privileged_obs[num_train_envs:])
                     else:
                         actions_eval = self.alg.actor_critic.act_student(policy_obs[num_train_envs:], estimator_obs[num_train_envs:])
-                    
+
                     # step gym environment and collect observations
                     obs_dict, rewards, dones, infos = self.env.step(torch.cat((actions_train, actions_eval), dim=0))
                     policy_obs, privileged_obs, estimator_obs = obs_dict["policy_obs"], obs_dict["privileged_obs"], obs_dict["estimator_obs"]
@@ -260,7 +260,7 @@ class Runner:
                         with logger.Prefix(metrics="eval/episode"):
                             logger.store_metrics(**infos['eval/episode'])
                             # ep_infos.append(infos['eval/episode'])
-                    
+
                     if 'curriculum' in infos:
 
                         cur_reward_sum += rewards
@@ -408,7 +408,7 @@ class Runner:
             # Cleanup
             wandb.finish()
 
-    
+
     def log_wandb(self, locs):
 
         self.tot_timesteps += self.num_steps_per_env * self.env.num_envs
@@ -428,7 +428,7 @@ class Runner:
             "Perf/learning_time": locs['learn_time'],
             "Perf/iteration_time": iteration_time,
         }, locs['it'])
-        
+
         # Train statistics (over the whole iteration)
         if len(locs['rewbuffer']) > 0:
             self.wandb_run.log({
@@ -524,7 +524,7 @@ class Runner:
         if device is not None:
             self.alg.actor_critic.to(device)
         return self.alg.actor_critic.act_expert
-    
+
 
     def log_terrain_curriculum_plot(self, it):
 

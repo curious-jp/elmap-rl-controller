@@ -35,7 +35,7 @@ def train_go1(headless=True):
     debug_viz = False
 
     # curriculum configuration
-    # Cfg.commands.num_lin_vel_bins = 1 no used 
+    # Cfg.commands.num_lin_vel_bins = 1 no used
     # Cfg.commands.num_ang_vel_bins = 1
     # Cfg.curriculum_thresholds.tracking_ang_vel = 0.95
     # Cfg.curriculum_thresholds.tracking_lin_vel = 0.95
@@ -73,7 +73,7 @@ def train_go1(headless=True):
     Cfg.domain_rand.added_mass_range = [-2.0, 2.0]
     Cfg.domain_rand.randomize_com_displacement = False
     Cfg.domain_rand.com_displacement_range = [-0.15, 0.15]
-    Cfg.domain_rand.randomize_ground_friction = False 
+    Cfg.domain_rand.randomize_ground_friction = False
     Cfg.domain_rand.ground_friction_range = [0.0, 0.0]
     Cfg.domain_rand.randomize_motor_strength = True  # wtw true
     Cfg.domain_rand.motor_strength_range = [0.9, 1.1]
@@ -132,7 +132,7 @@ def train_go1(headless=True):
         ['height_measurements_z_bias', 1, False],
         ['zero',            1,      True]   # additional privileged observation that will always be zero, to use when disabling the estimator
     ]
-    
+
 
     #--------------------------
     # Observations and commands
@@ -189,7 +189,7 @@ def train_go1(headless=True):
     Cfg.terrain.height_measurements_per_env_z_noise_std = 0.05
     Cfg.terrain.height_measurements_per_env_noise_prob = 0.20
     Cfg.terrain.height_measurements_per_env_resampling_s = 7
-    
+
 
 
     # Cfg.env.estimator_observation_components = None # same as policy observations
@@ -213,7 +213,7 @@ def train_go1(headless=True):
     Cfg.normalization.clip_actions = 20.0 # was 10 way lower than RSL...
     Cfg.normalization.clip_observations = 100.0
 
-  
+
 
     #--------------------------
     # Terrain configuration
@@ -225,7 +225,7 @@ def train_go1(headless=True):
     # Cfg.domain_rand.tile_height_curriculum = False
     # Cfg.domain_rand.tile_height_update_interval = 1000000
     # Cfg.domain_rand.tile_height_curriculum_step = 0.01
-    
+
     # terrain types: [smooth slope, rough slope, stairs up, stairs down, discrete, stepping stones, none, smooth flat, rough flat]
     Cfg.terrain.terrain_proportions = [0, 0, 0, 0, 1.0, 0, 0, 0.0, 0.0]
     Cfg.terrain.curriculum = False
@@ -245,7 +245,7 @@ def train_go1(headless=True):
     Cfg.terrain.center_robots = True
     Cfg.terrain.center_span = 5
     Cfg.terrain.horizontal_scale = 0.1 #0.1 resolution of gridmap
-     
+
 
     # original RSL plane
     # Cfg.terrain.mesh_type = 'plane'
@@ -262,7 +262,7 @@ def train_go1(headless=True):
     # -----------------
     # Env termination
     # -----------------
-    
+
     # terminate on these conditions
     Cfg.rewards.use_terminal_foot_height = False
     Cfg.rewards.use_terminal_body_height = False
@@ -271,7 +271,7 @@ def train_go1(headless=True):
     Cfg.rewards.use_terminal_roll_pitch = True
     Cfg.rewards.terminal_body_ori =  1.39626  # 80 degrees #1.22173 # 70 degrees
     Cfg.reward_scales.termination = -0 # not
-    
+
 
     # ---------------------
     # Rewards
@@ -305,7 +305,7 @@ def train_go1(headless=True):
     Cfg.reward_scales.feet_air_time = 0.0 # 0.5
     Cfg.rewards.use_adaptive_period = False
     Cfg.rewards.contact_condition_scale = -1
-    
+
 
     #negative rewards
     Cfg.reward_scales.base_height = -5 #-10
@@ -318,7 +318,7 @@ def train_go1(headless=True):
     Cfg.rewards.torque_pos_thigh_weight = 1.0
     Cfg.rewards.torque_pos_calf_weight = 1.0
 
-    Cfg.reward_scales.dof_pos = -0.1 
+    Cfg.reward_scales.dof_pos = -0.1
     Cfg.rewards.dof_pos_hip_weight = 3.0
     Cfg.rewards.dof_pos_thigh_weight = 1.0
     Cfg.rewards.dof_pos_calf_weight = 0.0
@@ -338,10 +338,10 @@ def train_go1(headless=True):
     # Cfg.asset.torque_limits_factor = 0.8
     Cfg.rewards.soft_torque_limit = 0.7
     Cfg.reward_scales.torque_limits = -10.0
-    
 
 
-    # disabled 
+
+    # disabled
     # Cfg.reward_scales.feet_air_time = 0.0
     Cfg.reward_scales.feet_contact_forces = 0.0
     Cfg.reward_scales.tracking_contacts_shaped_vel = 0
@@ -376,7 +376,7 @@ def train_go1(headless=True):
     #-------------
     # Commands
     #-------------
-    
+
 
     Cfg.commands.resampling_time = 10 # twice per episode
 
@@ -384,9 +384,9 @@ def train_go1(headless=True):
     # heading command
     Cfg.commands.heading_command = False
     Cfg.commands.heading = [-3.14, 3.14]
-    
+
     # Cfg.commands.lin_vel_x = [-1.0, 1.0]
-    # Cfg.commands.limit_vel_x = [-1.0, 1.0] 
+    # Cfg.commands.limit_vel_x = [-1.0, 1.0]
     # Cfg.commands.lin_vel_y = [-1.0, 1.0]
     # Cfg.commands.limit_vel_y = [-1.0, 1.0]
     # Cfg.commands.ang_vel_yaw = [-1.5, 1.5]
@@ -394,14 +394,14 @@ def train_go1(headless=True):
 
 
     Cfg.commands.lin_vel_x = [-0.5, 0.5]
-    Cfg.commands.limit_vel_x = [-1.0, 1.5] 
+    Cfg.commands.limit_vel_x = [-1.0, 1.5]
     Cfg.commands.lin_vel_y = [-0.5, 0.5]
     Cfg.commands.limit_vel_y = [-1.0, 1.0]
     Cfg.commands.ang_vel_yaw = [-1.0, 1.0]
     Cfg.commands.limit_vel_yaw = [-1.5, 1.5]
 
     # Cfg.commands.lin_vel_x = [-0.5, 0.5]
-    # Cfg.commands.limit_vel_x = [-1.5, 1.5] 
+    # Cfg.commands.limit_vel_x = [-1.5, 1.5]
     # Cfg.commands.lin_vel_y = [-0.5, 0.5]
     # Cfg.commands.limit_vel_y = [-1.0, 1.0]
     # Cfg.commands.ang_vel_yaw = [-1.0, 1.0]
@@ -431,7 +431,7 @@ def train_go1(headless=True):
     Cfg.commands.limit_body_pitch = [0.0, 0.0]
     Cfg.commands.limit_body_roll = [0.0, 0.0]
     Cfg.commands.limit_stance_width = [0.0, 0.0]
-    Cfg.commands.limit_stance_length = [0.0, 0.0]    
+    Cfg.commands.limit_stance_length = [0.0, 0.0]
     Cfg.commands.limit_aux_reward_coef = [0.0, 0.0]
 
     Cfg.commands.num_bins_vel_x = 10 ##from 21
@@ -448,16 +448,10 @@ def train_go1(headless=True):
     Cfg.commands.num_bins_stance_width = 1
 
     #Cfg.commands.gaitwise_curricula = False
-    
 
-    
     # cmd vx,vy,vtheta exactly 0 with standing_still_prob
     Cfg.commands.train_standing_still = True
     Cfg.commands.standing_still_prob = 0.05
-
-
-
-
 
     env = VelocityTrackingEasyEnv(sim_device='cuda:0', headless=headless, cfg=Cfg, debug_viz=debug_viz)
 
@@ -480,7 +474,7 @@ if __name__ == '__main__':
                      root=Path(f"{MINI_GYM_ROOT_DIR}/runs").resolve(), )
     print("Loggind directory:", os.path.join(logger.root,logger.prefix))
     logger.log_text("""
-                charts: 
+                charts:
                 - yKey: train/episode/rew_total/mean
                   xKey: iterations
                 - yKey: train/episode/rew_tracking_lin_vel/mean
@@ -515,8 +509,8 @@ if __name__ == '__main__':
                   xKey: iterations
                 - yKey: train/episode/rew_feet_slip/mean
                   xKey: iterations
-                
-               
+
+
                 - yKey: train/episode/command_area_nominal/mean
                   xKey: iterations
                 - yKey: train/episode/max_terrain_height/mean
